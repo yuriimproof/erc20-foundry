@@ -1,3 +1,31 @@
+# ERC20 Token Implementation with Foundry
+
+This project demonstrates how to create ERC20 tokens using two different approaches:
+
+1. Using OpenZeppelin contracts library (`OurToken.sol`)
+2. Manual implementation from scratch (`ManualToken.sol`)
+
+Both implementations conform to the ERC20 standard, and the project includes deployment scripts and tests.
+
+## Token Implementations
+
+### OurToken
+
+`OurToken` is implemented using the OpenZeppelin ERC20 contract. It's a simple token with a fixed initial supply that is minted to the deployer.
+
+### ManualToken
+
+`ManualToken` is a custom implementation of the ERC20 standard built from scratch. It includes all the standard ERC20 functionality:
+- Token transfers
+- Allowance mechanism
+- Balance tracking
+
+## Project Structure
+
+- `src/`: Contains the token contracts
+- `script/`: Contains deployment scripts
+- `test/`: Contains test files
+
 ## Foundry
 
 **Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
@@ -47,8 +75,10 @@ $ anvil
 
 ### Deploy
 
+To deploy the OurToken contract:
+
 ```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
+$ forge script script/DeployOurToken.s.sol:DeployOurToken --rpc-url <your_rpc_url> --private-key <your_private_key>
 ```
 
 ### Cast

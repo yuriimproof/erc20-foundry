@@ -6,35 +6,35 @@ import {OurToken} from "../src/OurToken.sol";
 import {DeployOurToken} from "../script/DeployOurToken.s.sol";
 
 contract OurTokenTest is Test {
-  OurToken public ourToken;
-  DeployOurToken public deployer;
+    OurToken public ourToken;
+    DeployOurToken public deployer;
 
-  uint256 public constant STARTING_BALANCE = 100 ether;
+    uint256 public constant STARTING_BALANCE = 100 ether;
 
-  address public alice = makeAddr("alice");
-  address public bob = makeAddr("bob");
-  
-  function setUp() external {
-    deployer = new DeployOurToken();
-    ourToken = deployer.run();
+    address public alice = makeAddr("alice");
+    address public bob = makeAddr("bob");
 
-    vm.prank(msg.sender);
-    ourToken.transfer(bob, STARTING_BALANCE);
-  }
+    function setUp() external {
+        deployer = new DeployOurToken();
+        ourToken = deployer.run();
 
-  function test_BobBalance() public view {
-    assertEq(ourToken.balanceOf(bob), STARTING_BALANCE);
-  }
+        vm.prank(msg.sender);
+        ourToken.transfer(bob, STARTING_BALANCE);
+    }
 
-  function test_Allowance() public {
-    uint256 initialAllowance = 1000;
-    vm.prank(bob);
-    ourToken.approve(alice, initialAllowance);
+    function test_BobBalance() public view {
+        assertEq(ourToken.balanceOf(bob), STARTING_BALANCE);
+    }
 
-    vm.prank(alice);
-    ourToken.transferFrom(bob, alice, initialAllowance);
+    function test_Allowance() public {
+        uint256 initialAllowance = 1000;
+        vm.prank(bob);
+        ourToken.approve(alice, initialAllowance);
 
-    assertEq(ourToken.balanceOf(alice), initialAllowance);
-    assertEq(ourToken.balanceOf(bob), STARTING_BALANCE - initialAllowance);
-  }
+        vm.prank(alice);
+        ourToken.transferFrom(bob, alice, initialAllowance);
+
+        assertEq(ourToken.balanceOf(alice), initialAllowance);
+        assertEq(ourToken.balanceOf(bob), STARTING_BALANCE - initialAllowance);
+    }
 }
